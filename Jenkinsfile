@@ -11,16 +11,12 @@ pipeline {
             
         }
        
-        stage('Build') {
-            steps {
-               
-                    echo 'Build'
-                    //sh 'mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit'
-                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit'
-                    sh 'mvn clean install'
-                    echo 'latest snaphot created successfull!'
-                
-            }
+        stage('Build')
+        {
+             steps {
+                 echo 'build'
+                 sh 'mvn clean install'
+             }
         }
         stage('Trigger Pipeline_A')
         {
