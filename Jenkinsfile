@@ -20,5 +20,12 @@ pipeline {
                 
             }
         }
+        stage('Trigger Pipeline_A')
+        {
+            steps {
+                build 'Repo_A pipeline'
+                echo 'Built Repo_A successfully!'
+            }
+        }
     }
 }
