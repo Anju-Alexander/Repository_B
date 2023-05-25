@@ -15,6 +15,7 @@ pipeline {
             steps {
                
                     echo 'Build'
+                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion} versions:commit'
                     sh 'mvn clean install'
                     echo 'latest snaphot created successfull!'
                 
