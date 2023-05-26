@@ -15,7 +15,7 @@ pipeline {
         {
              steps {
                  echo 'build'
-                 sh "echo \"${BUILD_NUMBER}\""
+                 
                  sh "mvn build-helper:parse-version versions:set -DnewVersion=\"${parsedVersion.majorVersion}\""
                 
              }
