@@ -17,7 +17,7 @@ pipeline {
                  echo 'build'
                  
                  sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
-                 sh 'git status
+                 sh 'git status'
              }
         }
         stage('Push to B')
