@@ -16,7 +16,8 @@ pipeline {
              steps {
                  echo 'build'
                  
-                 sh "mvn build-helper:parse-version versions:set -DnewVersion=\"${parsedVersion.majorVersion}\""
+                 sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion}'
+
                 
              }
         }
