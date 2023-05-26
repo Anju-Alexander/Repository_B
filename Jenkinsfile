@@ -17,7 +17,7 @@ pipeline {
                  echo 'build'
                  sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
                  sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
-                 
+                 sh 'mvn package'
                  sh 'git status'
                  sh 'git add pom.xml'
                  sh 'git commit -m "updated version"'
