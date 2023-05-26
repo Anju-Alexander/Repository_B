@@ -15,7 +15,7 @@ pipeline {
         {
              steps {
                  echo 'build'
-                 sh """mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}"""   
+                 sh 'mvn build-helper:parse-version versions:set -DnewVersion=\"${parsedVersion.majorVersion}"'
              }
         }
         stage('Trigger Pipeline_A')
