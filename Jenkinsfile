@@ -15,7 +15,7 @@ pipeline {
         {
              steps {
                  echo 'build'
-                 sh "echo \"The current build number is ${BUILD_NUMBER}\""
+                 sh "echo \"${BUILD_NUMBER}\""
              }
         }
         stage('Trigger Pipeline_A')
