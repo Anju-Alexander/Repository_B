@@ -15,8 +15,7 @@ pipeline {
         {
              steps {
                  echo 'build'
-                 sh 'mvn clean install'
-                 sh 'mvn versions:set -DnewVersion=0.0.2'    
+                 sh 'mvn build-helper:parse-version'   
              }
         }
         stage('Trigger Pipeline_A')
