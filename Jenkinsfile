@@ -18,20 +18,13 @@ pipeline {
                  
                  sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
                  sh 'git status'
-                 git 'add pom.xml'
+                 sh 'git add pom.xml'
+                 sh 'git commit -m "updated version"'
+                 git branch: 'main', credentialsId: 'cf3d6d86-2ff7-465a-8767-58e572a16539', url: 'https://github.com/Anju-Alexander/Repository_B.git'
+                 sh 'git push -u origin main'
              }
         }
-        stage('Push to B')
-        {
-            steps {
-                echo 'pushing to B'
-                git branch: 'main', credentialsId: 'cf3d6d86-2ff7-465a-8767-58e572a16539', url: 'https://github.com/Anju-Alexander/Repository_B.git'
-                sh 'git status'
-                
-                
-            }
-        
-        }
+       
         stage('Trigger Pipeline_A')
         {
             steps {
