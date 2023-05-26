@@ -11,7 +11,7 @@ pipeline {
             
         }
        
-        stage('Build')
+        stage('Build & push')
         {
              steps {
                  echo 'build'
@@ -20,6 +20,7 @@ pipeline {
                  sh 'git status'
                  sh 'git add pom.xml'
                  sh 'git commit -m "updated version"'
+                 echo 'push'
                  git branch: 'main', credentialsId: 'cf3d6d86-2ff7-465a-8767-58e572a16539', url: 'https://github.com/Anju-Alexander/Repository_B.git'
                  sh 'git push -u origin main'
              }
