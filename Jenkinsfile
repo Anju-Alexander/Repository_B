@@ -26,6 +26,13 @@ pipeline {
                  sh 'git remote rm repo_b_push'
              }
         }
+        stage('Run')
+        {
+            steps{
+            
+            }
+        
+        }
        
         stage('Trigger Pipeline_A')
         {
