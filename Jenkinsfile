@@ -54,15 +54,10 @@ pipeline {
         stage('Trigger Pipeline_A')
         {
             steps {
-                if(myVariabl)
-                {
+                
                     build 'Repo_A pipeline'
                     echo 'Built Repo_A successfully!'
-                }
-                else
-                {
-                    echo 'Not trigerring repo A'
-                }
+               
             }
         }
     }
