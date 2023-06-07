@@ -3,13 +3,7 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [
-    {
-      "enabled": false,
-      "matchPackagePatterns": ["*"],
-      "automerge": true
-    }
-  ],
+ 
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security"],
