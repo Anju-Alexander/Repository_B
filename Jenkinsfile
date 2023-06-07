@@ -14,8 +14,9 @@ pipeline {
        
         stage('Build & push')
         {
-             script {
-                 steps {
+             
+             steps {
+                 script{
                      echo 'build'
                      commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
 
@@ -41,6 +42,7 @@ pipeline {
                     }
                  }
              }
+             
         }
         stage('Test')
         {
