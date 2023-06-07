@@ -57,9 +57,18 @@ pipeline {
         stage('Trigger Pipeline_A')
         {
             steps {
-                
-                    build 'Repo_A pipeline'
-                    echo 'Built Repo_A successfully!'
+                    script{
+                        if(myVariable)
+                        {
+                            build 'Repo_A pipeline'
+                            echo 'Built Repo_A successfully!'
+                        }
+                        else
+                        {
+                             echo 'Built Repo_A is cancelled'
+                        }
+                    }
+                    
                
             }
         }
