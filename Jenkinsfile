@@ -1,3 +1,4 @@
+def myVariable = false
 pipeline {
     agent any
 
@@ -15,15 +16,29 @@ pipeline {
         {
              steps {
                  echo 'build'
-                 sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
-                 sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
-                 sh 'mvn install'
-                 sh 'git status'
-                 sh 'git add pom.xml'
-                 sh 'git commit -m "updated version"'
-                 echo 'push'
-                 sh 'git push -u repo_b_push main'
-                 sh 'git remote rm repo_b_push'
+                 commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
+                            
+                 commitMsg = commit.substring( commit.indexOf(' ') ).trim()
+                 myVariable = commitMsg.contains('Anju')
+                
+                if(myVariable)
+                {
+
+                     sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
+                     sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
+                     sh 'mvn install'
+                     sh 'git status'
+                     sh 'git add pom.xml'
+                     sh 'git commit -m "updated version"'
+                     echo 'push'
+                     sh 'git push -u repo_b_push main'
+                     sh 'git remote rm repo_b_push'
+                }
+                else
+                {
+                    sh 'mvn install'
+                    echo 'build stable!'
+                }
              }
         }
         stage('Test')
@@ -39,8 +54,15 @@ pipeline {
         stage('Trigger Pipeline_A')
         {
             steps {
-                build 'Repo_A pipeline'
-                echo 'Built Repo_A successfully!'
+                if(myVariabl)
+                {
+                    build 'Repo_A pipeline'
+                    echo 'Built Repo_A successfully!'
+                }
+                else
+                {
+                    echo 'Not trigerring repo A'
+                }
             }
         }
     }
