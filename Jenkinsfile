@@ -14,30 +14,32 @@ pipeline {
        
         stage('Build & push')
         {
-             steps {
-                 echo 'build'
-                 commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
-                            
-                 commitMsg = commit.substring( commit.indexOf(' ') ).trim()
-                 
-                if(commitMsg.contains('Anju'))
-                {
+             script {
+                 steps {
+                     echo 'build'
+                     commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
 
-                     sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
-                     sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
-                     sh 'mvn install'
-                     sh 'git status'
-                     sh 'git add pom.xml'
-                     sh 'git commit -m "updated version"'
-                     echo 'push'
-                     sh 'git push -u repo_b_push main'
-                     sh 'git remote rm repo_b_push'
-                }
-                else
-                {
-                    sh 'mvn install'
-                    echo 'build stable!'
-                }
+                     commitMsg = commit.substring( commit.indexOf(' ') ).trim()
+
+                    if(commitMsg.contains('Anju'))
+                    {
+
+                         sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
+                         sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} versions:commit'
+                         sh 'mvn install'
+                         sh 'git status'
+                         sh 'git add pom.xml'
+                         sh 'git commit -m "updated version"'
+                         echo 'push'
+                         sh 'git push -u repo_b_push main'
+                         sh 'git remote rm repo_b_push'
+                    }
+                    else
+                    {
+                        sh 'mvn install'
+                        echo 'build stable!'
+                    }
+                 }
              }
         }
         stage('Test')
