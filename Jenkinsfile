@@ -19,9 +19,8 @@ pipeline {
                  commit = sh(returnStdout: true, script: 'git log -1 --oneline').trim()
                             
                  commitMsg = commit.substring( commit.indexOf(' ') ).trim()
-                 myVariable = commitMsg.contains('Anju')
-                
-                if(myVariable)
+                 
+                if(commitMsg.contains('Anju'))
                 {
 
                      sh 'git remote add repo_b_push https://github.com/Anju-Alexander/Repository_B.git'
