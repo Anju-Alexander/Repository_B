@@ -57,6 +57,7 @@ pipeline {
         stage('Trigger Pipeline_A')
         {
             steps {
+                
                     script{
                         if(myVariable)
                         {
